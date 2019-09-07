@@ -1,0 +1,107 @@
+/*
+ LAYOUT STYLING
+*/
+a {
+    text-decoration: none !important;
+    font-size: 20px;
+    margin: 0 20px 0 0;
+}
+
+a:hover {
+    color: #999 !important;
+}
+
+#parent_div {
+    width: 100%;
+}
+
+#record_div {
+    width: 100%;
+    margin: 60px 0 0 0;
+    border: none;
+    padding: 50px;
+}
+
+#left_div, #right_div {
+    float: left;
+    width: 25%;
+    height: 650px;
+    background-color: none;
+}
+
+#admno-search {
+    width: 100%;
+    float: left;
+    margin-bottom: 30px !important;
+    border: 1px solid #ccc;
+    background-color: #fbfbfb;
+}
+
+#left_div {
+    color: #000;
+}
+
+#middle_div {
+    float: left;
+    width: 50%;
+    height: auto;
+    background-color: none;
+    padding-top: 100px;
+}
+
+.menu-div {
+    width: 100%;
+    float: left;
+    height: 80px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+    color: #000!important;
+    background-color: #fff !important;
+    z-index: 555555;
+}
+
+/**
+    FORM STYLING
+*/
+
+input, select {
+    width: 100%;
+    float: left;
+    margin: -7px 0 10px 0;
+    height: 50px;
+    padding: 12px 15px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+
+label {
+    width: 100%;
+    color: black;
+}
+
+.frm-grp {
+    width: 100%;
+    float: left;
+    margin-bottom: 20px;
+    color:#666666;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+button {
+    padding: 20px;
+    width: 200px;
+    margin: 0 20px 0 0;
+    text-align: center;
+    font-size: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}

@@ -1,0 +1,12 @@
+{ 
+    "jwt" : {
+        "secret": "somesecret"
+    },
+    "development": {
+        "username":"root",
+        "password":"Adisababa2$",
+        "database":"dlhsapp",
+        "host":"localhost",
+        "dialect":"mysql"
+    }
+}

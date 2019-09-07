@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Form Handling</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="form.css">
+    </head>
+
+    <body>
+        <div class="menu-div">
+            <a href="form.html">Create</a>
+            <a href="records.html">Show</a>
+        </div>
+        <div id="parent_div" name="parent_div">
+            <div id="left_div" name="left_div"></div>
+            <div id="middle_div" name="middle_div">
+                <form  action="#" method="POST" id="frmstudent" name="frmstudent">
+                    <h3>Students Biodata</h3>
+                    <hr>
+                    <br>
+                    <!--admission_num Input-->
+                    <div class="frm-grp">
+                        <label for="admission_num">admission_num : </label>
+                        <input type="text" id="admission_num" name="admission_num" placeholder="Enter Your Admission" class="form_inp">        
+                    </div>
+
+                    <!--admission_num Input-->
+                    <div class="frm-grp">
+                        <label for="surname">surname : </label>
+                        <input type="text" id="surname" name="surname" placeholder="Enter Your surname" class="form_inp">        
+                    </div>
+
+
+                    <!--first_name Input-->
+                    <div class="frm-grp">
+                        <label for="first_name">first_name : </label>
+                        <input type="text" id="first_name" name="first_name" placeholder="Enter Your first_name" class="form_inp">        
+                    </div>
+
+
+                    <!--middle_name Input-->
+                    <div class="frm-grp">
+                        <label for="middle_name">middle_name : </label>
+                        <input type="text" id="middle_name" name="middle_name" placeholder="Enter Your middle_name" class="form_inp">        
+                    </div>
+
+                    
+                    <input type="hidden" id="passport" name="passport" value="myimage.jpg">
+                    
+                    <!--DOB Input-->
+                    <div class="frm-grp">
+                        <label for="date_of_birth">Date of Birthn : </label>
+                        <input type="date" id="date_of_birth" name="date_of_birth" placeholder="Select Your date_of_birth" class="form_inp">
+                    </div>
+                    
+                    <!--Gender Input-->
+                    <div class="frm-grp">
+                        <label for="gender">Gender : </label>
+                        <select id="gender" name="gender">
+                            <option>Select Your Gender</option>
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                        </select>
+                    </div>
+                    
+                    <input type="hidden" id="class_id" name="class_id" value="3">
+
+                    <input type="hidden" id="parent_id" name="parent_id" value="5">
+
+
+                    <!--Year of Addmission Input-->
+                    <div class="frm-grp">
+                        <label for="year_of_admission">year of admission : </label>
+                        <input type="date" id="year_of_admission" name="year_of_admission" placeholder="Select Your year_of_admission" class="form_inp">
+                    </div>
+
+                    <div class="frm-grp">
+                        <button type="button" id="save_student">Submit</button>
+                        <button>Reset</button>
+                    </div>
+                </form>
+            </div>
+            <div id="right_div" name="right_div"></div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="jquery.serializeToJSON.min.js"></script>
+        <script>
+            const save_student  = document.querySelector("#save_student");
+            if (save_student) {
+                save_student.addEventListener('click', () => {
+                    const obj   = $("#frmstudent").serializeToJSON(); 
+                    let frmdata = JSON.stringify(obj);
+                    if (frmdata) {
+                        $.ajax({
+                            url : "http://localhost:3000/students",
+                            method : "POST",
+                            data : frmdata,
+                            contentType : "application/json"
+                        })
+                        .done(function(res){
+                            alert(res.message);
+                        })
+                        .fail(function(err){
+                            alert(res.message);
+                        });
+                    }
+                });
+            }
+        </script>
+    </body>
+</html>

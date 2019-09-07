@@ -1,0 +1,66 @@
+-- MySQL dump 10.13  Distrib 5.7.27, for Linux (x86_64)
+--
+-- Host: localhost    Database: dlhsapp
+-- ------------------------------------------------------
+-- Server version	5.7.27-0ubuntu0.18.04.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `students`
+--
+
+DROP TABLE IF EXISTS `students`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `students` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `admission_num` varchar(15) NOT NULL,
+  `surname` varchar(100) NOT NULL,
+  `first_name` varchar(100) NOT NULL,
+  `middle_name` varchar(100) DEFAULT NULL,
+  `date_of_birth` date NOT NULL,
+  `gender` char(1) DEFAULT NULL,
+  `class_id` int(3) DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `year_of_admission` date DEFAULT NULL,
+  `passport` varchar(225) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `admission_num` (`admission_num`),
+  KEY `students` (`parent_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `students`
+--
+
+LOCK TABLES `students` WRITE;
+/*!40000 ALTER TABLE `students` DISABLE KEYS */;
+INSERT INTO `students` VALUES (1,'DLHS/LA/2018/1','LUCKY','ENOCH','OGHENE','2001-05-08','M',1,1,'2018-09-15','oghene.jpg',1,1,'2019-08-29 10:16:56','0000-00-00 00:00:00'),(2,'DLHS/LA/2018/2','ABIOLA','JOHN','DAVID','2001-05-08','M',1,1,'2018-09-15','john.jpg',2,2,'2019-08-29 10:25:16','0000-00-00 00:00:00'),(3,'DLHS/IB/2018/2','ABRAHAM','OMITOYE','CHARLES','2009-05-08','M',2,3,'2018-09-20','charles.jpg',3,3,'2019-08-29 10:28:03','0000-00-00 00:00:00'),(4,'DLHS/IB/2018/4','ABRAHAM','OMITOYE','CHARLES','2009-05-08','M',NULL,NULL,NULL,NULL,NULL,NULL,'2019-08-29 10:33:29','0000-00-00 00:00:00'),(5,'DLHS/ABJ/16/201','OLATOYE','RUTH','ASAKE','2005-03-01','F',1,3,'2017-09-23','ASAKE.PNG',NULL,NULL,'2019-08-29 11:40:10','0000-00-00 00:00:00'),(6,'TESTO1','AAAAAA','BBBBBB','CCCCCC','2019-01-01','M',1,2,'2018-01-10','jjjj.jpg',1,2,'2019-08-30 21:43:06','2019-08-30 21:43:06'),(7,'TEST92','dfghjkl;','dfghjkl','fghjkl;','2019-08-15','M',3,5,'2019-08-08','myimage.jpg',NULL,NULL,'2019-08-31 02:06:04','2019-08-31 02:06:04'),(8,'TEST9222','dfghjkl;','dfghjkl','fghjkl;','2019-08-15','M',3,5,'2019-08-08','myimage.jpg',NULL,NULL,'2019-08-31 02:06:59','2019-08-31 02:06:59'),(9,'GITC101','testnow','testall','better still','2019-08-17','M',3,5,'2019-08-13','myimage.jpg',NULL,NULL,'2019-08-31 02:11:40','2019-08-31 02:11:40'),(10,'NEW TEST','NEW TEST','NEW TEST','NEW TEST','2019-08-08','M',3,5,'2019-08-03','myimage.jpg',NULL,NULL,'2019-08-31 20:43:44','2019-08-31 20:43:44'),(11,'20190902','TEST1','TEST2','TEST3','2019-09-11','M',3,5,'2019-09-03','myimage.jpg',NULL,NULL,'2019-09-02 22:49:34','2019-09-02 22:49:34'),(12,'444444','kfdmksj','hfdjs','hdfiso','2019-09-04','M',3,5,'2019-09-12','myimage.jpg',NULL,NULL,'2019-09-03 20:02:24','2019-09-03 20:02:24'),(13,'ADM101','Admin','Admin2','Admin3','2019-09-13','M',3,5,'2019-09-12','myimage.jpg',NULL,NULL,'2019-09-04 21:06:17','2019-09-04 21:06:17'),(14,'ANOTHER','ANOTHER','ANOTHER','ANOTHER','2019-09-05','M',3,5,'2019-09-05','myimage.jpg',NULL,NULL,'2019-09-04 21:12:33','2019-09-04 21:12:33'),(15,'DONE','DONE','DONE','DONE','2019-09-05','M',3,5,'2019-09-07','myimage.jpg',NULL,NULL,'2019-09-04 21:15:18','2019-09-04 21:15:18'),(16,'TRYING IT OUT','TESTING','TESTING','TESTING','2019-09-05','M',3,5,'2019-09-27','myimage.jpg',NULL,NULL,'2019-09-04 21:18:33','2019-09-04 21:18:33'),(17,'WESTFILM','TESTING','TESTING','TESTING','2019-09-04','F',3,5,'2019-09-27','myimage.jpg',NULL,NULL,'2019-09-05 19:49:13','2019-09-05 19:49:13');
+/*!40000 ALTER TABLE `students` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-09-05 17:27:51

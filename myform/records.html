@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Form Handling</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="form.css">
+    </head>
+
+    <body>
+        <div class="menu-div">
+            <a class="rm_" href="form.html">Create</a>
+            <a class="rm_" href="records.html">Show</a>
+        </div>
+
+        <div id="record_div" name="record_div">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="admno-search">
+                        <div style="width: 100%;float:left;background-color: #f1f1f1; padding: 10px 20px">
+                            <div style="float: left;">
+                                <a href="#" id="toggleFilter" style="text-align: right !important;color:blue;float: right;margin: 0 !important;">
+                                    &#9668;&nbsp;Toggle Filter&nbsp;&#9658;
+                                </a>
+                            </div>
+                            <div style="float: right">
+                                <a href="#" id="submitForm" style="text-align: right !important;color:blue;float: right;margin: 0 !important;">
+                                    &#9668;&nbsp;Submit Filter&nbsp;&#9658;
+                                </a>
+                            </div>
+                        </div>
+                        <div id="filterFormDiv" style="width: 100%;float:left;padding: 10px 20px;">
+                            <form action="#" method="POST" id="filterForm">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="admission_num">Admission Number Filter</label>
+                                        <input class="form_inp" id="admission_num" name="admission_num" placeholder="Search By Admission Number">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="surname">Surname Filter</label>
+                                        <input class="form_inp" id="surname" name="surname" placeholder="Search By Surname">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="class_id">Class Filter</label>
+                                        <select name="class_id" id="class_id">
+                                            <option value="">Select Class</option>
+                                            <option value="1">Diamond</option>
+                                            <option value="2">Gold</option>
+                                            <option value="3">Pride</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="gender">Gender Filter</label>
+                                        <select name="gender" id="gender">
+                                            <option value="">Select Gender</option>
+                                            <option value="M">Male</option>
+                                            <option value="F">Female</option>
+                                        </select>
+                                    </div>
+                                </div>   
+                            </form>             
+                        </div>
+                    </div>
+                    <div id="display_recs" name="display_recs"></div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="jquery.serializeToJSON.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                let frmdata = {};
+                if (frmdata) {
+                    $.ajax({
+                        url : "http://localhost:3000/get_students",
+                        method : "GET",
+                        data : frmdata,
+                        contentType : "application/json"
+                    })
+                    .done(function(res){
+                        if (res) {
+                            display_student_records(res);
+                        }
+                    })
+                    .fail(function(err){
+                        console.log(err);
+                    });
+                }
+
+                const submitForm    = document.querySelector("#submitForm");
+                submitForm.addEventListener('click', () => {
+                    let formValues  = new FormData(document.querySelector("#filterForm"));
+                
+                    let object      = {};
+                    formValues.forEach((value, key) => {
+                        let ds_value= value.trim();
+                        if (ds_value) object[key] = ds_value.replace(/\//g, "%2F");
+                    });
+                    const frmdata = object;
+
+                    let strParam = "";
+                    strParam += (frmdata.admission_num) ? `/${frmdata.admission_num}` : "/__NA__";
+                    strParam += (frmdata.surname)   ? `/${frmdata.surname}` : "/__NA__";
+                    strParam += (frmdata.class_id)  ? `/${frmdata.class_id}`: "/__NA__";
+                    strParam += (frmdata.gender)    ? `/${frmdata.gender}`  : "/__NA__";
+
+                    let ds_url  = "http://localhost:3000/get_students_admno"+strParam;
+                    if (frmdata) {
+                        $.ajax({
+                            url : ds_url,
+                            method : "GET",
+                            data : frmdata,
+                            contentType : "application/json"
+                        })
+                        .done(function(res){
+                            if (res) {
+                                console.log(res);
+                                display_student_records(res);
+                            }
+                        })
+                        .fail(function(err){
+                            console.log(err);
+                        });
+                    }
+                });
+            });
+
+
+            const display_student_records = (res) => {
+                let disp = "";
+                disp += `<table class="table table-striped table-hover">`;
+                disp += `<thead>`;
+                disp += `<tr>`;
+                disp += `<th>Admission No.</th>`;
+                disp += `<th>Surname</th>`;
+                disp += `<th>First Name</th>`;
+                disp += `<th>Middle Name</th>`;
+                disp += `<th>Date Of Birth</th>`;
+                disp += `<th>Gender</th>`;
+                disp += `<th>Class</th>`;
+                disp += `<th>Parent</th>`;
+                disp += `<th>Admission Year</th>`;
+                disp += `</tr>`;
+                disp += `</thead>`;
+
+                 
+                const exclude_col = ["id","passport","created_by","modified_by","createdAt","updatedAt"];
+                disp += `<tbody>`;
+                res.forEach((item, pos) => {
+                    disp += `<tr>`;
+                    for (let i in item) {
+                        if (!exclude_col.includes(i)) {
+                            disp += `<td>${item[i]}</td>`;
+                        }
+                    }
+                    disp += `</tr>`;
+                });
+                disp += `</tbody>`;
+                disp += `</table>`;
+                document.querySelector("#display_recs").innerHTML = disp; 
+            };
+        </script>
+    </body>
+</html>
